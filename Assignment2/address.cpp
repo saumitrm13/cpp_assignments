@@ -228,7 +228,9 @@ int main(){
                     break;
                 default:
                     cout<<"\nEnter a valid choice";
+        }
     }
-    }
+    delete addPtr;
+    addPtr = NULL;
     return 0;
 }
