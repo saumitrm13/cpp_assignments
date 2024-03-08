@@ -36,8 +36,13 @@ public:
         int amount;
         cout<<"Enter amount to be withdrawn"<<endl;
         cin>>amount;
-        balance -= amount;
-        cout<<"Amount withdrawn"<<endl;
+        if(amount>balance){
+            cout<<"Not enough balance"<<endl;
+        }
+        else{
+            balance -= amount;
+            cout<<"Amount withdrawn"<<endl;
+        }
     }
 
     void displayAccountDetails() const
@@ -48,13 +53,15 @@ public:
     }
 };
 
-int choice(){
+int menu(){
+    int choice;
+
     cout<<"\nMENU"<<endl;
     cout<<"1. Create Account"<<endl;
     cout<<"2. Display details"<<endl;
     cout<<"3. Deposit"<<endl;
     cout<<"4. Withdraw"<<endl;
-    cout<<"5. Show balace"<<endl;
+    cout<<"5. Show balance"<<endl;
     cout<<"0. EXIT"<<endl;
 
     cin>>choice;
@@ -69,11 +76,21 @@ int main()
 {
     BankAccount *bankPtr = NULL;
     int choice;
+    string name;
+    int accno;
+    double balance;
 
     while((choice = menu())!=0){
         switch(choice){
             case 1:
-                bankPtr = new BankAccount();
+                cout<<"Enter account number :"<<endl;
+                cin>>accno;
+                cout<<"Enter Name :"<<endl;
+                cin>>name;
+                cout<<"Enter Balance : "<<endl;
+                cin>>balance;
+
+                bankPtr = new BankAccount(accno,name,balance);
                 cout<<"Account Created"<<endl;
             case 2:
                 if(bankPtr == NULL){
@@ -102,7 +119,13 @@ int main()
                     break;
                 }
                 cout<<"Balance : "<<bankPtr->getBalance()<<endl;
+                break;
             default:
                 cout<<"Enter a valid choice"<<endl;
+                break;
         }
     }
+    delete bankPtr;
+    bankPtr = NULL;
+    return 0;
+}
