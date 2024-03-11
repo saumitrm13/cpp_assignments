@@ -6,7 +6,7 @@ class Student{
     float marks[3];
     string gender;
     string name;
-    float total_marks;
+    float total_marks = 0;
 
     public:
         Student() : Student(" "," ",0){}
@@ -32,7 +32,7 @@ class Student{
                 cin>>marks[i];
                 total_marks += marks[i];
             }
-            total_marks /= 3;
+            total_marks = total_marks/3;
         }
 
         //display
@@ -59,29 +59,27 @@ int menu(){
 
     cout<<"\n Menu \n";
     cout<<"0. Exit\n";
-    cout<<"1. Display Details of all students\n";
-    cout<<"2. Accept Details of all students\n";
-    cout<<"3. Sort the marks according to percentage\n";
+    cout<<"1. Display Details of all students.\n";
+    cout<<"2. Accept Details of all students.\n";
+    cout<<"3. Sort the students according to roll numbers.\n";
     cout<<"4. Search a student from roll number.\n";
 
     cin>>choice;
 
     if(choice == 0){
-        cout<<"Program Exit\n";
+        cout<<"Program Exit.\n";
     }
 
     return choice;
 }
 int main(){
-    int size=2,choice;
-//    cout<<"Enter number of students.\n";
-
-    Student stud_arr[2];
-    float marks[size];
+    int size,choice;
+    cout<<"Enter number of students.\n";
+    cin>>size;
+    Student stud_arr[size];
 
     for(int i = 0;i<size;i++){
         stud_arr[i].acceptDetails();
-        marks[i] = stud_arr[i].get_totalMarks();
     }
 
     while((choice = menu())!=0){
@@ -99,7 +97,7 @@ int main(){
             case 3:{
                 for(int i = 0;i<size;i++){
 
-                    for(int j = 0;j<size-i;j++){
+                    for(int j = 0;j<size-i-1;j++){
                         if(stud_arr[j].get_roll() > stud_arr[j+1].get_roll()){
                             Student temp = stud_arr[j+1];
                             stud_arr[j+1] = stud_arr[j];
@@ -110,7 +108,7 @@ int main(){
                 }
             
 
-                cout<<"Sorted marks : \n";
+                cout<<"Sorted students : \n";
                 for(int i = 0; i<size; i++){
                     stud_arr[i].displayDetails();
                 }
